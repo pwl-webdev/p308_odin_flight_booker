@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="ap_center">
+	<%= form_for @flight, url: flights_path, html: {method: "GET"} do |f| %>
+	<div class="row">
+	  <div class="six columns">
+	   <label>Departure Airport</label>
+	  	<%= f.collection_select(:from_airport_id, Airport.all, :id, :name, {:include_blank => "Please select"}, {:class=>'u-full-width'}) %>
+	  </div>
+	  <div class="six columns">
+	  <label>Arrival Airport</label>
+	  	<%= f.collection_select(:to_airport_id, Airport.all, :id, :name, {:include_blank => "Please select"}, {:class=>'u-full-width'}) %>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="six columns">
+	  	<label>Departure date</label>
+	  	<%= f.collection_select(:start_time, @dates, :capitalize, :capitalize, {prompt: nil}, {:class=>'u-full-width'}) %>
+	  	<%= f.submit "Search" %>
+	  </div>
+	</div>
+	<% end %>
+
+	<% if @matching_flights && @matching_flights.count > 0 %>
+		<h5><%= @matching_flights.count%> Matching flights were found</h5>
+		<table class="u-full-width">
+		  <thead>
+		    <tr>
+		      <th></th>
+		      <th>Departure from</th>
+		      <th></th>
+		      <th>Arrival in</th>
+		      <th></th>
+		      <th>Date</th>
+		      <th>Time</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  <% @matching_flights.each do |fl| %> 
+		    <tr>
+		      <td></td>
+		      <td><%= fl.from_airport.name %></td>
+		      <td><%=fl.from_airport.code %></td>
+		      <td><%=fl.to_airport.name %></td>
+		      <td><%=fl.to_airport.code %></td>
+		      <td><%=fl.start_time.strftime("%d/%m/%Y") %></td>
+		      <td><%=fl.start_time.strftime("%H:%M") %></td>
+		    </tr>
+		  <% end %>
+		  </tbody>
+		</table>
+	<% else %>
+		<h5>No matching flights were found :(</h5>
+	<% end %>
+  </div>	
+</div>
