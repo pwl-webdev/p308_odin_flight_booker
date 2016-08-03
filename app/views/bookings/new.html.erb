@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="ap_center">
+	<div class="row">
+		<h5>Booking details for flight</h5>
+			<table class="u-full-width">
+			  <thead>
+			    <tr>
+			      <th>Departure from</th>
+			      <th></th>
+			      <th>Arrival in</th>
+			      <th></th>
+			      <th>Date</th>
+			      <th>Time</th>
+			      <th>Nummber of Passengers</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td><%= @selected_flight.from_airport.name %></td>
+			      <td><%= @selected_flight.from_airport.code %></td>
+			      <td><%= @selected_flight.to_airport.name %></td>
+			      <td><%= @selected_flight.to_airport.code %></td>
+			      <td><%= @selected_flight.start_time.strftime("%d/%m/%Y") %></td>
+			      <td><%= @selected_flight.start_time.strftime("%H:%M") %></td>
+			      <td><%= @passenger_options %></td>
+			    </tr>
+			  </tbody>
+			</table>
+
+	<% pas_num = 1 %>
+	<%= form_for @booking do |f| %>
+		<%= f.fields_for :passengers do |p| %>
+			<thead>
+			</thead>
+			<tbody>
+			   <tr>
+			   <h6> Passenger <%= pas_num%></h6>
+			   <%pas_num += 1%>
+			   </tr>
+			  <tr>
+				<div class="row">
+				  <div class="one columns">
+				   		<%= p.label :name, "Name" %>
+				   </div>
+				   <div class="eleven columns">
+				   		<%= p.text_field :name, class: "u-full-width" %>
+				   </div>
+				</div>
+				<div class="row">
+				   <div class="one columns">
+				   		<%= p.label :email, "Email " %>
+				   </div>
+				   <div class="eleven columns">				   
+				   		<%= p.text_field :email, class: "u-full-width" %>
+				   </div>
+				</div>
+				<% end %>
+			  </tr>
+			</tbody>
+		<%= hidden_field_tag(:flight_id, @flight_id) %>
+		<%= f.hidden_field :flight_id, value: @flight_id %>
+		<%= hidden_field_tag(:passengers, @passenger_options) %>
+	<%= f.submit "Book my flight" %>
+	<% end %>
+
+	</div>
+  </div>	
+</div>
+

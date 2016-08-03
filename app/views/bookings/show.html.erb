@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="ap_center">
+	<div class="row">
+		<h5>Booked flight</h5>
+			<table class="u-full-width">
+			  <thead>
+			    <tr>
+			      <th>Departure from</th>
+			      <th></th>
+			      <th>Arrival in</th>
+			      <th></th>
+			      <th>Date</th>
+			      <th>Time</th>
+			      <th>Nummber of Passengers</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td><%= @booking.flight.from_airport.name %></td>
+			      <td><%= @booking.flight.from_airport.code %></td>
+			      <td><%= @booking.flight.to_airport.name %></td>
+			      <td><%= @booking.flight.to_airport.code %></td>
+			      <td><%= @booking.flight.start_time.strftime("%d/%m/%Y") %></td>
+			      <td><%= @booking.flight.start_time.strftime("%H:%M") %></td>
+			      <td><%= @booking.flight.passengers.count %></td>
+			    </tr>
+			  </tbody>
+			</table>
+
+	<% pas_num = 1 %>
+				<table class="u-full-width">
+				  <thead>
+			    <tr>
+			      <th></th>
+			      <th>Name</th>
+			      <th>email</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+	<% @booking.passengers.each do |p| %>
+
+			    <tr>
+			      <td>Passenger <%= pas_num %></td>
+			      <td><%= p.name %></td>
+			      <td><%= p.email %></td>
+			    </tr>
+				<% pas_num += 1 %>
+	<% end %>
+			  </tbody>
+			</table>
+	</div>
+  </div>	
+</div>

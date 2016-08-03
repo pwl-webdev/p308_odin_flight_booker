@@ -2,6 +2,8 @@ class FlightsController < ApplicationController
 	def index
 		@flight = Flight.new
 		@dates = Flight.date_list
+		@booking = Booking.new
+		@passenger_options = [1,2,3,4]
 
 		#@from_airport  = flight_params[:from_airport_id]
 		#@to_airport = flight_params[:to_airport_id]

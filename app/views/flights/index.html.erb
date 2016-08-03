@@ -22,32 +22,36 @@
 
 	<% if @matching_flights && @matching_flights.count > 0 %>
 		<h5><%= @matching_flights.count%> Matching flights were found</h5>
-		<table class="u-full-width">
-		  <thead>
-		    <tr>
-		      <th></th>
-		      <th>Departure from</th>
-		      <th></th>
-		      <th>Arrival in</th>
-		      <th></th>
-		      <th>Date</th>
-		      <th>Time</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		  <% @matching_flights.each do |fl| %> 
-		    <tr>
-		      <td></td>
-		      <td><%= fl.from_airport.name %></td>
-		      <td><%=fl.from_airport.code %></td>
-		      <td><%=fl.to_airport.name %></td>
-		      <td><%=fl.to_airport.code %></td>
-		      <td><%=fl.start_time.strftime("%d/%m/%Y") %></td>
-		      <td><%=fl.start_time.strftime("%H:%M") %></td>
-		    </tr>
-		  <% end %>
-		  </tbody>
-		</table>
+		<%= form_for @booking, url: new_booking_path, html: {method: "GET"} do |f| %>
+			<table class="u-full-width">
+			  <thead>
+			    <tr>
+			      <th></th>
+			      <th>Departure from</th>
+			      <th></th>
+			      <th>Arrival in</th>
+			      <th></th>
+			      <th>Date</th>
+			      <th>Time</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  <% @matching_flights.each do |fl| %> 
+			    <tr>
+			      <td><%=f.radio_button(:flight_id, fl.id) %></td>
+			      <td><%=fl.from_airport.name %></td>
+			      <td><%=fl.from_airport.code %></td>
+			      <td><%=fl.to_airport.name %></td>
+			      <td><%=fl.to_airport.code %></td>
+			      <td><%=fl.start_time.strftime("%d/%m/%Y") %></td>
+			      <td><%=fl.start_time.strftime("%H:%M") %></td>
+			    </tr>
+			  <% end %>
+			  </tbody>
+			</table>
+		<%= select_tag(:passenger_options, options_for_select(@passenger_options)) %>
+		<%= submit_tag "Continue" %>
+		<% end %>
 	<% else %>
 		<h5>No matching flights were found :(</h5>
 	<% end %>
