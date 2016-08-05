@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Flight reservation Confirmation </h1>
+    <p>
+      Dear <%= @passenger.name %>,
+      <br>
+      You have successfully booked flight from  localhost:3000, please find details below:
+      <br>
+    </p>
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th>Departure from</th>
+            <th></th>
+            <th>Arrival in</th>
+            <th></th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Nummber of Passengers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @flight.from_airport.name %></td>
+            <td><%= @flight.from_airport.code %></td>
+            <td><%= @flight.to_airport.name %></td>
+            <td><%= @flight.to_airport.code %></td>
+            <td><%= @flight.start_time.strftime("%d/%m/%Y") %></td>
+            <td><%= @flight.start_time.strftime("%H:%M") %></td>
+            <td><%= @flight.passengers.count %></td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+======================================================
+    Flight reservation Confirmation
+======================================================
+      
+Dear <%= @passenger.name %>,
+You have successfully booked flight from  localhost:3000, please find details below:
+
+
+
+Departure from: <%= @flight.from_airport.name %>  <%= @flight.from_airport.code %>
+Arrival in: <%= @flight.to_airport.name %>  <%= @flight.to_airport.code %>
+Date: <%= @flight.start_time.strftime("%d/%m/%Y") %>
+Time: <%= @flight.start_time.strftime("%H:%M") %>
