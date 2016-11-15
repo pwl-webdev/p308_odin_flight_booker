@@ -52,7 +52,7 @@
 		<%= select_tag(:passenger_options, options_for_select(@passenger_options)) %>
 		<%= submit_tag "Continue" %>
 		<% end %>
-	<% else %>
+	<% elsif @matching_flights%>
 		<h5>No matching flights were found :(</h5>
 	<% end %>
   </div>	
